@@ -1,0 +1,9 @@
+
+after clonning the repo:
+npm install
+
+enter on public/admin and then:
+bower install
+
+Installing mysql module to connect node with MySql
+npm install mysql2 --save
