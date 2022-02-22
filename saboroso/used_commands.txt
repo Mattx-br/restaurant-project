@@ -5,5 +5,9 @@ npm install
 enter on public/admin and then:
 bower install
 
-Installing mysql module to connect node with MySql
+Installing mysql module to connect node with MySql<https://www.npmjs.com/package/mysql2>
 npm install mysql2 --save
+
+get EJS
+
+<ejs.co>
