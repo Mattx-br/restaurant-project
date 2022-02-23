@@ -11,3 +11,18 @@ npm install mysql2 --save
 get EJS
 
 <ejs.co>
+
+
+installing redis for session settings and storage
+npm install --save express-session@1.15.6 connect-redis@3.3.3
+
+
+install redis database
+
+for ubuntu
+<https://redis.io/>
+https://askubuntu.com/questions/983326/installation-of-specific-version-of-redis-server-in-ubuntu-16-04-server
+https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-redis-on-ubuntu-16-04#install-the-build-and-test-dependencies
+
+for windows 
+https://github.com/MicrosoftArchive/redis
