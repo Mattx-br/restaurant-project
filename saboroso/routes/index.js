@@ -2,7 +2,9 @@ var conn = require('./../inc/db');
 var express = require('express');
 var menus = require('./../inc/menus');
 var router = express.Router();
+
 var reservations = require('./../inc/reservations');
+var contacts = require('./../inc/contacts')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -21,12 +23,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/contacts', function(req, res, next) {
 
-    res.render('contacts', {
-        title: 'Contact - Restaurante Saboroso!',
-        background: 'images/img_bg_3.jpg',
-        h1: 'Talk to us!',
-        isHome: false
-    });
+    contacts.render(req, res);
 
 });
 
@@ -102,8 +99,33 @@ router.post('/reservations', function(req, res, next) {
 
     }
 
+});
+
+router.post('/contacts', function(req, res, next) {
+
+    console.log(req.body);
+
+    if (!req.body.name) {
+        contacts.render(req, res, 'Type your name');
+    } else if (!req.body.email) {
+        contacts.render(req, res, 'Type your email');
+    } else if (!req.body.message) {
+        contacts.render(req, res, 'Type your message');
+    } else {
+
+        contacts.save(req.body)
+            .then(result => {
+
+                req.body = {};
+                contacts.render(req, res, null, 'Contact sended!')
+
+            })
+            .catch(err => { contacts.render(req, res, err.message) });
+
+    }
 
 
 });
+
 
 module.exports = router;
