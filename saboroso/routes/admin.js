@@ -2,13 +2,30 @@ var express = require('express');
 var users = require('./../inc/users');
 var router = express.Router();
 
+router.use(function(req, res, next) {
+
+    if (!req.session.user) {
+
+        res.redirect('admin/login');
+
+    } else {
+
+        next();
+
+    }
+    // res.render('admin/index');
+
+    // console.log('MiddleWare', req.url);
+
+
+});
+
 
 // get Methods
 
-
 router.get('/', function(req, res, next) {
 
-    res.render('admin/');
+    res.render('admin/index');
 
 });
 

@@ -26,3 +26,7 @@ https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-re
 
 for windows 
 https://github.com/MicrosoftArchive/redis
+
+
+about middlewares
+https://expressjs.com/pt-br/guide/using-middleware.html
