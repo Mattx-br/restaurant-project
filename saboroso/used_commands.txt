@@ -41,3 +41,7 @@ https://github.com/MicrosoftArchive/redis
 
 about middlewares
 https://expressjs.com/pt-br/guide/using-middleware.html
+
+install formidable
+
+npm install formidable@1.2.1 --save
