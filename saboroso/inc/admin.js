@@ -1,5 +1,15 @@
 module.exports = {
 
+    getParams(req, params) {
+
+        console.log('nome do cara', req.session.user[0].name);
+        return Object.assign({}, {
+            menus: req.menus,
+            user: req.session.user[0]
+        }, params);
+
+    },
+
     getMenus(req) {
 
         let menus = [{
