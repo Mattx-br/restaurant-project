@@ -1,3 +1,14 @@
+turn on servers
+
+mysql:
+~$ /usr/bin/mysql -u root -p
+
+redis:
+redis-server
+
+localhost:
+npm start
+
 
 after clonning the repo:
 npm install
