@@ -2,6 +2,7 @@ var express = require('express');
 var users = require('./../inc/users');
 var router = express.Router();
 var admin = require('../inc/admin');
+var menus = require('../inc/menus');
 
 // middleware
 router.use(function(req, res, next) {
@@ -76,7 +77,13 @@ router.get('/contacts', function(req, res, next) {
 
 router.get('/menus', function(req, res, next) {
 
-    res.render('admin/menus', admin.getParams(req));
+    menus.getMenus().then(data => {
+
+        res.render('admin/menus', admin.getParams(req, {
+            data
+        }));
+
+    });
 
 });
 
