@@ -10,8 +10,15 @@ localhost:
 npm start
 
 
+nodemon:(to run the localhost)
+npm install nodemon --save
+
+
 after clonning the repo:
 npm install
+
+to install bower:
+npm install -g bower
 
 enter on public/admin and then:
 bower install
@@ -27,17 +34,23 @@ get EJS
 installing redis for session settings and storage
 npm install --save express-session@1.15.6 connect-redis@3.3.3
 
-
+------------------------------------------------------------------------------------------------
 install redis database
+------------------------
 
 for ubuntu
+
+http://download.redis.io/releases/redis-3.2.1.tar.gz
+
 <https://redis.io/>
 https://askubuntu.com/questions/983326/installation-of-specific-version-of-redis-server-in-ubuntu-16-04-server
-https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-redis-on-ubuntu-16-04#install-the-build-and-test-dependencies
+https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-20-04-pt
+
+$ sudo apt install redis-server
 
 for windows 
 https://github.com/MicrosoftArchive/redis
-
+------------------------------------------------------------------------------------------------
 
 about middlewares
 https://expressjs.com/pt-br/guide/using-middleware.html
@@ -45,3 +58,53 @@ https://expressjs.com/pt-br/guide/using-middleware.html
 install formidable
 
 npm install formidable@1.2.1 --save
+
+--------------------------------------------------------
+Install and configure mysql for ubuntu
+for mysql: 
+https://medium.com/@alef.duarte/cant-connect-to-local-mysql-server-through-socket-var-run-mysqld-mysqld-sock-155d580f3a06 
+
+for workbench:
+https://linuxhint.com/installing_mysql_workbench_ubuntu/
+--------------------------------------------------------
+
+# 1 - Parar o MySQL
+/etc/init.d/mysql stop 
+
+ou ainda
+killall mysqld 
+
+# 2 - Iniciar o serviço com o comando: 
+mysqld_safe --skip-grant-tables & 
+
+# 3 - Acessar o banco 
+mysql -u root 
+
+Executar os comando abaixo
+
+mysql> use mysql;
+mysql> flush privileges; 
+mysql> update user set password=PASSWORD("NOVASENHA") where User='root';
+mysql> flush privileges; 
+mysql> quit;
+
+
+# 4 - Parar novamente o MySQL 
+/etc/init.d/mysql stop
+
+ou ainda 
+killall mysqld 
+
+# 5 - Inicializar e testar acesso
+/etc/init.d/mysql start 
+
+mysql -u root -p
+
+jeito 1
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('nova-senha');
+
+jeito 2
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'nova-senha';
+
+jeito 3
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
