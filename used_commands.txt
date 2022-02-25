@@ -1,7 +1,9 @@
-turn on servers
+
+
+Turn on servers
 
 mysql:
-~$ /usr/bin/mysql -u root -p
+/usr/bin/mysql -u root -p
 
 redis:
 redis-server
@@ -9,6 +11,8 @@ redis-server
 localhost:
 npm start
 
+installing things for redis
+npm install --save express-session@1.15.6 connect-redis@3.3.3
 
 nodemon:(to run the localhost)
 npm install nodemon --save
@@ -45,6 +49,8 @@ http://download.redis.io/releases/redis-3.2.1.tar.gz
 <https://redis.io/>
 https://askubuntu.com/questions/983326/installation-of-specific-version-of-redis-server-in-ubuntu-16-04-server
 https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-20-04-pt
+
+https://redis.io/download
 
 $ sudo apt install redis-server
 

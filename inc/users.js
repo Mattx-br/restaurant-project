@@ -44,7 +44,7 @@ module.exports = {
 
                             } else {
 
-                                resolve(result);
+                                resolve(row);
 
                             }
 
