@@ -1,4 +1,5 @@
 var conn = require("./db");
+
 module.exports = {
 
     dashboard() {
@@ -23,10 +24,11 @@ module.exports = {
 
     getParams(req, params) {
 
-        console.log('nome do cara', req.session.user[0].name);
+        console.log('nome do cara', req.session.user);
+
         return Object.assign({}, {
             menus: req.menus,
-            user: req.session.user[0]
+            user: req.session.user
         }, params);
 
     },
@@ -50,7 +52,7 @@ module.exports = {
                 href: '/admin/reservations',
                 icon: 'calendar-check-o',
                 active: false
-            },
+            }, 
             {
                 text: 'Contato',
                 href: '/admin/contacts',
