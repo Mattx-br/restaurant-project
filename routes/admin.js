@@ -8,7 +8,6 @@ var menus = require('./../inc/menus');
 // middleware
 router.use(function(req, res, next) {
 
-    console.log('\nMiddleWare', req.url + '\n\n');
 
     if (['/login'].indexOf(req.url) === -1 && !req.session.user) {
 
@@ -23,12 +22,8 @@ router.use(function(req, res, next) {
     // res.render('admin/index');
 
 
-    // console.log('batata', req.session, '\n\n');
     // req.session.user = { name: 'batata' }
     console.log('nome do cara', req.session.user);
-
-    // console.log('menus:', req.menus);
-
 
 
 });
@@ -37,7 +32,6 @@ router.use(function(req, res, next) {
 
     req.menus = admin.getMenus(req);
 
-    // console.log('menus do ap.use:', req.menus);
     next();
 
 });
@@ -48,11 +42,6 @@ router.use(function(req, res, next) {
 router.get('/logout', function(req, res, next) {
 
     delete req.session.user;
-
-    // console.log('user dps de deletar', req.session.user + '\n\n');
-
-
-    // console.log('\nMiddleWare', req.url + '\n\n');
 
     res.redirect('/admin/login');
 

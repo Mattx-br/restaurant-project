@@ -24,8 +24,8 @@ var app = express();
 
 app.use(function(req, res, next) {
 
-    console.log('url da pagina', req.url);
-    console.log('método da pagina', req.method);
+    // console.log('url da pagina', req.url);
+    // console.log('método da pagina', req.method);
 
     if (req.method === 'POST' && req.url == '/admin/menus') {
         var form = formidable.IncomingForm({

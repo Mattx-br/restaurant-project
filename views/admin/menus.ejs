@@ -54,7 +54,7 @@
                                     <td>
                                         <%= row.price  %>
                                     </td>
-                                    <td><button type="button" class="btn btn-xs btn-info btn-update" data-toggle="modal" data-target="#modal-update"><i
+                                    <td><button type="button" class="btn btn-xs btn-info btn-update"><i
                         class="fa fa-pencil"></i> Editar</button>&nbsp;<button type="button" class="btn btn-xs btn-danger btn-delete"><i
                         class="fa fa-trash"></i> Excluir</button></td>
                                 </tr>
@@ -154,39 +154,76 @@
         <!-- /.modal-dialog -->
     </div>
 
-    <%- include('./inc/admin-footer') -%>
+    <script>
+        // Add a new dish to menu
+
+        let formCreate = document.querySelector('#modal-create form');
+
+        formCreate.addEventListener('submit', (event) => {
+
+            event.preventDefault();
+
+            let formCreateData = new FormData(formCreate);
+
+            fetch('/admin/menus', {
+                    method: 'POST',
+                    body: formCreateData
+                })
+                .then((response) => {
+                    response.json();
+                    console.log(response.json());
+                })
+                .then(json => window.reload());
+
+        });
+        // *** Add a new dish to menu
 
 
-        <script>
-            // Add a new dish to menu
+        // Update dish
 
-            let formCreate = document.querySelector('#modal-create form');
+        let formUpdate = document.querySelector('#modal-update form');
 
-            formCreate.addEventListener('submit', (event) => {
+        var editButtons = [...document.querySelectorAll('.btn-update')]
 
-                event.preventDefault();
+        // console.log(editButtons);
 
-                let formCreateData = new FormData(formCreate);
+        editButtons.forEach(btn => {
 
-                fetch('/admin/menus', {
-                        method: 'POST',
-                        body: formCreateData
-                    })
-                    .then((response) => {
-                        response.json();
-                        console.log(response.json());
-                        console.log('\n\n\nadicionou 1 \n\n\n');
-                    })
-                    .then(json => {
+            btn.addEventListener('click', e => {
 
-                        console.log('\n\n\nadicionou\n\n\n');
+                // console.log('batata');
+                // console.log(e);
 
-                        window.reload();
-                    });
+                let tr = e.path.find(el => {
+                    return (el.tagName.toUpperCase() === 'TR');
+                });
 
-                console.log('\n\n\nadicionou 3\n\n\n');
+                let data = JSON.parse(tr.dataset.row);
+                console.log(data);
 
-                window.reload();
+                for (let name in data) {
+
+                    switch (name) {
+                        case 'photo':
+
+                            break;
+
+                        default:
+                            let input = formUpdate.querySelector(`[name=${name}]`);
+
+                            if (input) input.value = data[name];
+                            break;
+                    }
+
+
+                }
+
+                $('#modal-update').modal('show');
             });
-            // *** Add a new dish to menu
-        </script>
+
+        });
+
+        // *** Update dish
+    </script>
+
+    <%- include('./inc/admin-footer') -%>
