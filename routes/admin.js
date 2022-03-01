@@ -6,7 +6,9 @@ var admin = require('./../inc/admin')
 var menus = require('./../inc/menus');
 
 // middleware
-router.use(function (req, res, next) {
+router.use(function(req, res, next) {
+
+    console.log('\nMiddleWare', req.url + '\n\n');
 
     if (['/login'].indexOf(req.url) === -1 && !req.session.user) {
 
@@ -17,21 +19,25 @@ router.use(function (req, res, next) {
         next();
 
     }
+
     // res.render('admin/index');
 
-    console.log('\nMiddleWare', req.url + '\n\n');
 
-    console.log('nome do cara', req.session.user.name);
+    // console.log('batata', req.session, '\n\n');
+    // req.session.user = { name: 'batata' }
+    console.log('nome do cara', req.session.user);
 
+    // console.log('menus:', req.menus);
 
 
 
 });
 
-router.use(function (req, res, next) {
+router.use(function(req, res, next) {
 
     req.menus = admin.getMenus(req);
 
+    // console.log('menus do ap.use:', req.menus);
     next();
 
 });
@@ -39,13 +45,11 @@ router.use(function (req, res, next) {
 
 // GET Methods
 
-router.get('/logout', function (req, res, next) {
-
-    // console.log('user', req.session.user + '\n\n');
+router.get('/logout', function(req, res, next) {
 
     delete req.session.user;
 
-    console.log('user dps de deletar', req.session.user + '\n\n');
+    // console.log('user dps de deletar', req.session.user + '\n\n');
 
 
     // console.log('\nMiddleWare', req.url + '\n\n');
@@ -54,9 +58,12 @@ router.get('/logout', function (req, res, next) {
 
 })
 
-router.get('/', function (req, res, next) {
+router.get('/', function(req, res, next) {
 
     // res.render('admin/index', admin.getParams(req, { data }));
+    // req.session.user = { name: 'batata' }
+
+    // res.render('admin/index', { name: 'batata', data });
 
     admin.dashboard().then(data => {
 
@@ -69,19 +76,19 @@ router.get('/', function (req, res, next) {
 });
 
 
-router.get('/login', function (req, res, next) {
+router.get('/login', function(req, res, next) {
 
     users.render(req, res, null);
 
 });
 
-router.get('/contacts', function (req, res, next) {
+router.get('/contacts', function(req, res, next) {
 
     res.render('admin/contacts', admin.getParams(req));
 
 });
 
-router.get('/menus', function (req, res, next) {
+router.get('/menus', function(req, res, next) {
 
     menus.getMenus().then(data => {
 
@@ -92,7 +99,7 @@ router.get('/menus', function (req, res, next) {
     });
 });
 
-router.get('/reservations', function (req, res, next) {
+router.get('/reservations', function(req, res, next) {
 
     res.render('admin/reservations', admin.getParams(req, {
 
@@ -102,13 +109,13 @@ router.get('/reservations', function (req, res, next) {
 
 });
 
-router.get('/users', function (req, res, next) {
+router.get('/users', function(req, res, next) {
 
     res.render('admin/users', admin.getParams(req));
 
 });
 
-router.get('/emails', function (req, res, next) {
+router.get('/emails', function(req, res, next) {
 
     res.render('admin/emails', admin.getParams(req));
 
@@ -118,7 +125,7 @@ router.get('/emails', function (req, res, next) {
 // post Methods
 // ======================================
 
-router.post('/login', function (req, res, next) {
+router.post('/login', function(req, res, next) {
 
     if (!req.body.email) {
 
@@ -139,13 +146,19 @@ router.post('/login', function (req, res, next) {
 
                 req.session.user = user;
 
+                // res.render('/admin')
                 res.redirect('/admin');
 
             })
             .catch(err => {
 
                 console.log('login errado\n');
-                users.render(req, res, 'Email or password invalid');
+
+                // res.redirect('/admin/login');
+
+                users.render(req, res, 'Email or password incorrect.');
+
+                // users.render(req, res, 'Email or password invalid');
 
             });
 
@@ -163,6 +176,9 @@ router.post('/menus', function(req, res, next) {
 
         })
         .catch(err => { res.send(err); });
+
+    // res.send(req.body);
+
 });
 
 module.exports = router;

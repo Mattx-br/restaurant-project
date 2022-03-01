@@ -24,8 +24,6 @@ module.exports = {
 
     getParams(req, params) {
 
-        console.log('nome do cara', req.session.user);
-
         return Object.assign({}, {
             menus: req.menus,
             user: req.session.user
@@ -52,7 +50,7 @@ module.exports = {
                 href: '/admin/reservations',
                 icon: 'calendar-check-o',
                 active: false
-            }, 
+            },
             {
                 text: 'Contato',
                 href: '/admin/contacts',

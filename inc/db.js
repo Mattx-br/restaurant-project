@@ -1,12 +1,21 @@
 // get the client
 const mysql = require('mysql2');
 
-// create the connection to database
+// // create the connection to database
+// For linux(ubuntu)
+// const connection = mysql.createConnection({
+//     host: 'localhost',
+//     user: 'root',
+//     database: 'restaurant',
+//     password: 'Cle@r2022'
+// });
+
+// for windows
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     database: 'restaurant',
-    password: 'Cle@r2022'
+    password: ''
 });
 
 module.exports = connection;

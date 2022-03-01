@@ -158,6 +158,8 @@
 
 
         <script>
+            // Add a new dish to menu
+
             let formCreate = document.querySelector('#modal-create form');
 
             formCreate.addEventListener('submit', (event) => {
@@ -170,8 +172,21 @@
                         method: 'POST',
                         body: formCreateData
                     })
-                    .then((response) =>{ response.json(); console.log(response.json());})
-                    .then(json => console.log('json', json));
+                    .then((response) => {
+                        response.json();
+                        console.log(response.json());
+                        console.log('\n\n\nadicionou 1 \n\n\n');
+                    })
+                    .then(json => {
 
+                        console.log('\n\n\nadicionou\n\n\n');
+
+                        window.reload();
+                    });
+
+                console.log('\n\n\nadicionou 3\n\n\n');
+
+                window.reload();
             });
+            // *** Add a new dish to menu
         </script>
