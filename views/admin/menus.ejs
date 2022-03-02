@@ -166,7 +166,7 @@
 
             new HcodeFileReader('#modal-update [type=file]', '#modal-update img');
 
-            // Add a new dish to menu
+            // Create dish
 
             let formCreate = document.querySelector('#modal-create form');
 
@@ -181,8 +181,7 @@
 
                 });
 
-            // *** Add a new dish to menu
-
+            // *** Create dish
 
             // Update dish
 
@@ -237,4 +236,39 @@
             });
 
             // *** Update dish
+
+
+
+            // Delete dish
+
+            [...document.querySelectorAll('.btn-delete')].forEach(btn => {
+
+
+                btn.addEventListener('click', e => {
+
+                    let tr = e.path.find(el => {
+                        return (el.tagName.toUpperCase() === 'TR');
+                    });
+
+                    let data = JSON.parse(tr.dataset.row);
+
+                    if (confirm(`Are you sure you want to delete ${data.title}?`)) {
+
+                        fetch(`/admin/menus/${data.id}`, {
+                                method: 'DELETE'
+                            })
+                            .then(response => response.json())
+                            .then(json => {
+
+                                window.location.reload();
+
+                            });
+
+                    }
+
+                });
+
+            });
+
+            // *** Delete dish
         </script>

@@ -35,6 +35,10 @@ app.use(function(req, res, next) {
 
         form.parse(req, function(err, fields, files) {
 
+
+            // this thing is on the class 28 as well
+            // req.body = fields;
+
             req.fields = fields;
             req.files = files;
 
@@ -61,7 +65,12 @@ app.use(session({
 
 app.use(logger('dev'));
 app.use(express.json());
+
+// THIS IS THE THING THAT DOES NOT LET ME LOGIN, AND THE TEACHER ONLY SAID THTAT ON CLASS 28, BUT I GOT THIS PROBLEM AT CLASS 24, I SPENT A WHOLE DAY TRYING TO FIX THAT DAMN BUG, AND I ONLY GOT FIXED AT HOME, BUT IN OFFICE I DIDNT GET, LETS SE IF COMMENTING THIS LINE IT WILL WORK AT THE OFFICE
+
+// DO NOT COMMENT THIS AT HOME, ONLY AT THE OFFICE
 app.use(express.urlencoded({ extended: false }));
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
