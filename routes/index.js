@@ -70,7 +70,7 @@ router.get('/services', function(req, res, next) {
 // POST methods
 
 router.post('/reservations', function(req, res, next) {
-
+ 
     if (!req.body.name) {
         reservations.render(req, res, 'Type your name');
     } else if (!req.body.email) {

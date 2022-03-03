@@ -10,6 +10,8 @@ HTMLFormElement.prototype.save = function() {
 
             let formData = new FormData(form);
 
+console.log('formData:', formData);
+
             fetch(form.action, {
                     method: form.method,
                     body: formData
