@@ -12,7 +12,7 @@
                 <li><a href="/"><i class="fa fa-home"></i> Home</a></li>
                 <li class="active">Menu</li>
             </ol>
-        </section>
+        </section> 
 
         <!-- Main content -->
         <section class="content container-fluid">
@@ -204,8 +204,8 @@
 
                 btn.addEventListener('click', e => {
 
-                    // console.log('batata');
-                    // console.log(e);
+                    console.log('batata');
+                    console.log(e);
 
                     let tr = e.path.find(el => {
                         return (el.tagName.toUpperCase() === 'TR');
@@ -246,11 +246,32 @@
 
                 btn.addEventListener('click', e => {
 
-                    let tr = e.path.find(el => {
-                        return (el.tagName.toUpperCase() === 'TR');
-                    });
+                    // console.log('evento:', e.composedPath()[0]);
+
+                    console.log('noq cliquei: ', e.target.tagName);
+let tr = ''
+                    if(e.target.tagName === 'BUTTON'){
+                        console.log('button', e.composedPath()[2]);
+                         tr = e.composedPath()[2];
+                    }
+
+                    else{
+                         tr = e.composedPath()[3];
+                        console.log('fa- fa pencil:',e.composedPath()[3]);
+                    }
+
+
+
+
+                    console.log('tr.dataset.row:', tr.dataset.row);
+
+                    // let tr = e.composedPath()[2].find(el => {
+                    //     return (el.tagName.toUpperCase() === 'TR');
+                    // });
 
                     let data = JSON.parse(tr.dataset.row);
+
+                    console.log('data:', data);
 
                     if (confirm(`Are you sure you want to delete ${data.title}?`)) {
 
