@@ -26,13 +26,13 @@ module.exports = {
 
                     if (err) {
 
-                        reject(err);
+                        reject(`Erro genérico: ${err}`);
 
                     } else {
 
                         if (!result.length > 0) {
 
-                            reject('User or password incorrect.')
+                            reject('User or password incorrect. 1')
 
                         } else {
 
@@ -40,7 +40,7 @@ module.exports = {
 
                             if (row.password !== password) {
 
-                                reject('User or password incorrect.')
+                                reject('User or password incorrect. 2')
 
                             } else {
 

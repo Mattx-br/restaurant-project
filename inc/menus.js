@@ -29,6 +29,8 @@ module.exports = {
 
             fields.photo = `images/${path.parse(files.photo.path).base}`;
 
+            console.log('\n\nnome da foto:', fields.photo);
+
             let query, queryPhoto = '',
                 params = [
                     fields.title,
@@ -36,10 +38,12 @@ module.exports = {
                     fields.price
                 ];
 
-            if (files.photo.name) {
+            if (files.photo) {
                 queryPhoto = ',photo = ?';
                 params.push(fields.photo);
             }
+
+            console.log('\n\narray dos params:', params, '\n\n');
 
             if (parseInt(fields.id) > 0) {
                 // update
@@ -59,15 +63,23 @@ module.exports = {
 
                 // create
 
-                if (!files.photo.name) {
-                    reject('\n\nPhoto must be included\n\n')
-                }
+                console.log('nome da foto:', files.photo.name);
 
+                if (!files.photo.name || files.photo.name == '') {
+
+                    reject('\n\nPhoto must be included\n\n');
+
+                }
+                // else{
+
+                    
+                // }
                 query = `
             
                 INSERT INTO tb_menus (title,description, price, photo)
                 VALUES (?, ?, ?, ?)
                     `;
+
 
             }
 

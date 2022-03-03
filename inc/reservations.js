@@ -16,34 +16,64 @@ module.exports = {
     save(fields) {
         return new Promise((resolve, reject) => {
 
-            let date = fields.date.split('/');
+            console.log('entrou na promise do save');
 
-            fields.date = `${date[2]}-${date[1]}-${date[0]}`;
+            if(fields.date.indexOf('/') > -1) {
+                
+                let date = fields.date.split('/');
+    
+                fields.date = `${date[2]}-${date[1]}-${date[0]}`;
+            
+            }
 
-            conn.query(
-                `
-            INSERT INTO tb_reservations (name, email, people, date, time)
-            VALUES(?, ?, ?, ?, ?)
-            `, [
-                    fields.name,
-                    fields.email,
-                    fields.people,
-                    fields.date,
-                    fields.time,
-                ],
-                (err, result) => {
+            let query, params = [
+                fields.name,
+                fields.email,
+                fields.people,
+                fields.date,
+                fields.time
+            ]
 
-                    if (err) {
+            if (parseInt(fields.id) > 0) {
 
-                        reject(err);
+                query = `
+                    UPDATE tb_reservations
+                    SET
+                        name = ?,
+                        email = ?,
+                        people = ?,
+                        date = ?,
+                        time = ?,
+                        WHERE id = ?
+                `;
 
-                    } else {
-                        resolve(result);
-                    }
+                params.push(fields.id);
 
+            } else {
+
+                query = `
+                INSERT INTO tb_reservations (name, email, people, date, time)
+                VALUES(?, ?, ?, ?, ?)
+                `;
+
+                
+
+            }
+
+            conn.query(query, params, (err, result) => {
+
+                if (err) {
+
+                    reject(err);
+
+
+                } else {
+
+                    console.log('resultado:', result);
+                    resolve(result);
                 }
 
-            );
+            });
 
         });
     },

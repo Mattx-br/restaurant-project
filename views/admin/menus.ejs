@@ -20,8 +20,8 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">Lista</h3>
-                    <a href="#" class="btn btn-xs pull-right btn-success" data-toggle="modal" data-target="#modal-create"><i
-                class="fa fa-plus"></i> Novo</a>
+                    <a href="#" class="btn btn-xs pull-right btn-success" data-toggle="modal"
+                        data-target="#modal-create"><i class="fa fa-plus"></i> Novo</a>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body no-padding">
@@ -37,26 +37,27 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <% data.forEach(row =>{ %>
+                            <% data.forEach(row=>{ %>
 
 
                                 <tr data-row="<%= JSON.stringify(row);  %>">
                                     <td>
-                                        <%= row.id  %>
+                                        <%= row.id %>
                                     </td>
                                     <td><img src="/<%= row.photo  %>" alt="" style="height: 18px;"></td>
                                     <td>
-                                        <%= row.title  %>
+                                        <%= row.title %>
                                     </td>
                                     <td>
-                                        <%= row.description  %>
+                                        <%= row.description %>
                                     </td>
                                     <td>
-                                        <%= row.price  %>
+                                        <%= row.price %>
                                     </td>
                                     <td><button type="button" class="btn btn-xs btn-info btn-update"><i
-                        class="fa fa-pencil"></i> Editar</button>&nbsp;<button type="button" class="btn btn-xs btn-danger btn-delete"><i
-                        class="fa fa-trash"></i> Excluir</button></td>
+                                                class="fa fa-pencil"></i> Editar</button>&nbsp;<button type="button"
+                                            class="btn btn-xs btn-danger btn-delete"><i class="fa fa-trash"></i>
+                                            Excluir</button></td>
                                 </tr>
 
                                 <% }); %>
@@ -79,8 +80,8 @@
                 <form method="post" action="/admin/menus">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                         <h4 class="modal-title">Novo Menu</h4>
                     </div>
                     <div class="modal-body">
@@ -98,7 +99,8 @@
                         </div>
                         <div class="form-group">
                             <label for="inputPhotoCreate">Foto</label>
-                            <img style="max-width: 128px; max-height: 128px; display: block;" src="dist/img/boxed-bg.jpg">
+                            <img style="max-width: 128px; max-height: 128px; display: block;"
+                                src="dist/img/boxed-bg.jpg">
                             <input type="file" class="form-control" id="inputPhotoCreate" name="photo">
                         </div>
                     </div>
@@ -120,8 +122,8 @@
                     <input type="hidden" name="id">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                         <h4 class="modal-title">Editar Menu</h4>
                     </div>
                     <div class="modal-body">
@@ -139,7 +141,8 @@
                         </div>
                         <div class="form-group">
                             <label for="inputPhotoUpdate">Foto</label>
-                            <img style="max-width: 128px; max-height: 128px; display: block;" src="dist/img/boxed-bg.jpg">
+                            <img style="max-width: 128px; max-height: 128px; display: block;"
+                                src="dist/img/boxed-bg.jpg">
                             <input type="file" class="form-control" id="inputPhotoUpdate" name="photo">
                         </div>
                     </div>
@@ -170,9 +173,10 @@
 
             let formCreate = document.querySelector('#modal-create form');
 
-            formCreate.save().then(json => {
+            formCreate.save()
+                .then(json => {
 
-                    window.location.reload();
+                    //window.location.reload();
 
                 })
                 .catch(err => {
@@ -187,7 +191,8 @@
 
             let formUpdate = document.querySelector('#modal-update form');
 
-            formUpdate.save().then(json => {
+            formUpdate.save()
+                .then(json => {
 
                     window.location.reload();
 
@@ -205,11 +210,27 @@
                 btn.addEventListener('click', e => {
 
                     // console.log('batata');
-                    // console.log(e);
 
-                    let tr = e.path.find(el => {
-                        return (el.tagName.toUpperCase() === 'TR');
-                    });
+                    console.log('\n\ne.parentElement aq', e.originalTarget.parentElement.parentElement, '\n\n');
+
+                    // on windows
+                    // let tr = e.path.find(el => {
+                    //     return (el.tagName.toUpperCase() === 'TR');
+                    // });
+
+
+                    // on ubuntu
+                    // let tr =  e.originalTarget.parentElement.find(el => {
+                    //     return (el.tagName.toUpperCase() === 'TR');
+                    // });
+
+                    // On UBUNTU
+                    let tr = e.originalTarget.parentNode.parentElement;
+
+                    console.log('\n\ntr aqui: ', tr);
+
+                    // *** On UBUNTU
+
 
                     let data = JSON.parse(tr.dataset.row);
 
@@ -246,17 +267,25 @@
 
                 btn.addEventListener('click', e => {
 
-                    let tr = e.path.find(el => {
-                        return (el.tagName.toUpperCase() === 'TR');
-                    });
+                    // on windows
+                    // let tr = e.path.find(el => {
+                    //     return (el.tagName.toUpperCase() === 'TR');
+                    // });
+
+                    // On UBUNTU
+                    let tr = e.originalTarget.parentNode.parentElement;
+
+                    console.log('\n\ntr aqui: ', tr);
+
+                    // *** On UBUNTU
 
                     let data = JSON.parse(tr.dataset.row);
 
                     if (confirm(`Are you sure you want to delete ${data.title}?`)) {
 
                         fetch(`/admin/menus/${data.id}`, {
-                                method: 'DELETE'
-                            })
+                            method: 'DELETE'
+                        })
                             .then(response => response.json())
                             .then(json => {
 

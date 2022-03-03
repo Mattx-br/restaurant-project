@@ -1,4 +1,5 @@
 <%- include('./inc/admin-header') -%>
+
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -18,20 +19,21 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">Lista</h3>
-                    <a href="#" class="btn btn-xs pull-right btn-success" data-toggle="modal" data-target="#modal-create"><i
-                class="fa fa-plus"></i>
-              Novo</a>
+                    <a href="#" class="btn btn-xs pull-right btn-success" data-toggle="modal"
+                        data-target="#modal-create"><i class="fa fa-plus"></i>
+                        Novo</a>
                 </div>
                 <div class="box-header" style="height:44px;">
 
                     <div class="box-tools">
-                        <form action="">
+                        <form method="post" action="/admin/reservations">
                             <div class="form-group" style="width: 182px; float: left">
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="date" name="start" class="form-control unstyled" value="<%= date.start %>">
+                                    <input type="date" name="start" class="form-control unstyled"
+                                        value="<%= date.start %>">
                                 </div>
                             </div>
                             <div class="form-group" style="width: 182px; float: left">
@@ -70,9 +72,11 @@
                                 <td>2</td>
                                 <td>1/1/2019</td>
                                 <td>10:30</td>
-                                <td><button type="button" class="btn btn-xs btn-info btn-update" data-toggle="modal" data-target="#modal-update"><i
-                        class="fa fa-pencil"></i> Editar</button>&nbsp;<button type="button" class="btn btn-xs btn-danger btn-delete"><i
-                        class="fa fa-trash"></i> Excluir</button></td>
+                                <td><button type="button" class="btn btn-xs btn-info btn-update" data-toggle="modal"
+                                        data-target="#modal-update"><i class="fa fa-pencil"></i>
+                                        Editar</button>&nbsp;<button type="button"
+                                        class="btn btn-xs btn-danger btn-delete"><i class="fa fa-trash"></i>
+                                        Excluir</button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -98,11 +102,11 @@
     <div class="modal fade" id="modal-create">
         <div class="modal-dialog">
             <div class="modal-content" style="border-top: 3px solid #00a65a;">
-                <form method="post">
+                <form method="post" action="/admin/reservations">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                         <h4 class="modal-title">Nova Reserva</h4>
                     </div>
                     <div class="modal-body">
@@ -117,13 +121,13 @@
                         <div class="form-group">
                             <label for="inputPeopleCreate">Pessoas</label>
                             <select id="inputPeopleCreate" name="people" class="form-control">
-                  <option value=""> -- selecione -- </option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5+</option>
-                </select>
+                                <option value=""> -- selecione -- </option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5+</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="inputDateCreate">Data</label>
@@ -148,12 +152,12 @@
     <div class="modal fade" id="modal-update">
         <div class="modal-dialog">
             <div class="modal-content" style="border-top: 3px solid #00c0ef;">
-                <form method="post">
+                <form method="post" action="/admin/reservations">
                     <input type="hidden" name="id">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                         <h4 class="modal-title">Editar Reserva</h4>
                     </div>
                     <div class="modal-body">
@@ -168,13 +172,13 @@
                         <div class="form-group">
                             <label for="inputPeopleUpdate">Pessoas</label>
                             <select id="inputPeopleUpdate" name="people" class="form-control">
-                  <option value=""> -- selecione -- </option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5+</option>
-                </select>
+                                <option value=""> -- selecione -- </option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5+</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="inputDateUpdate">Data</label>
@@ -197,3 +201,50 @@
     </div>
 
     <%- include('./inc/admin-footer') -%>
+
+        <script src="/js/hcode-formsave.js"></script>
+
+        <script>
+            
+            // Create dish
+
+            console.log('\nentrou no script do reservations');
+
+            let formCreate = document.querySelector('#modal-create form');
+            
+            console.log('form create:',formCreate);
+
+            formCreate.save()
+                .then(json => {
+
+                    console.log('entrou no terceiro then');
+
+                    console.log('json de resposta:', json);
+                    // window.location.reload();
+
+                })
+                .catch(err => {
+
+                    console.log('\n\nerro ao salvar o menu', err, '\n\n\n');
+
+                });
+
+            // *** Create dish
+
+            // Update dish
+
+            let formUpdate = document.querySelector('#modal-update form');
+
+            formUpdate.save()
+                .then(json => {
+
+                    window.location.reload();
+
+                })
+                .catch(err => {
+
+                    console.log('\n\nerro ao salvar o menu', err, '\n\n\n');
+
+                });
+
+        </script>
