@@ -163,47 +163,36 @@
 
         <script src="/js/hcode-filereader.js"></script>
         <script src="/js/hcode-formsave.js"></script>
+        <script src="/js/hcode-grid.js"></script>
 
         <script>
             new HcodeFileReader('#modal-create [type=file]', '#modal-create img');
 
             new HcodeFileReader('#modal-update [type=file]', '#modal-update img');
 
-            // Create dish
+            new HcodeGrid({
 
-            let formCreate = document.querySelector('#modal-create form');
+                deleteUrl: '/admin/menus/${data.id}',
+                deleteMsg: 'Are you sure you want to delete ${data.title}?',
+                onUpdateLoad: (formUpdate, name, data) => {
 
-            formCreate.save().then(json => {
+                    let input = formUpdate.querySelector(`[name=${name}]`);
 
-                console.log('resolveu a promise');
+                    switch (name) {
 
-                // window.location.reload();
+                        case 'photo':
+                            formUpdate.querySelector('img').src = `/${data[name]}`;
+                            break;
+                        default:
+                            if (input) input.value = data[name];
+                            break;
+                    }
 
-            })
-                .catch(err => {
+                }
 
-                    console.log('\n\nerro ao salvar o menu', err, '\n\n\n');
+            });
 
-                });
 
-            // *** Create dish
-
-            // Update dish
-
-            let formUpdate = document.querySelector('#modal-update form');
-
-            formUpdate.save().then(json => {
-
-                window.location.reload();
-
-            })
-                .catch(err => {
-
-                    console.log('\n\nerro ao salvar o menu', err, '\n\n\n');
-
-                });
-
-            // *** Update dish
 
             var editButtons = [...document.querySelectorAll('.btn-update')]
 
