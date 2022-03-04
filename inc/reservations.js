@@ -64,8 +64,7 @@ module.exports = {
 
                 params.push(fields.id);
 
-            }
-            else {
+            } else {
 
                 console.log('entrou no create reservation');
 
@@ -102,8 +101,7 @@ module.exports = {
 
                 if (err) {
                     reject(err);
-                }
-                else {
+                } else {
                     resolve(results);
                 }
 

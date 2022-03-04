@@ -151,6 +151,41 @@ module.exports = {
 
         });
 
+    },
+
+    changePassword(req) {
+
+        return new Promise((resolve, reject) => {
+
+            console.log('req', req.fields);
+
+            if (!req.fields.password) {
+
+                reject("fill the fields please");
+
+            } else if (req.fields.password !== req.fields.passwordConfirm) {
+
+                reject("Passwords does not match");
+
+            } else {
+
+                conn.query(`
+                UPDATE tb_users SET password = ?
+
+                `, [req.fields.password, req.fields.id], (err, results) => {
+
+                    if (err) {
+                        reject(err.message);
+                    } else {
+                        resolve(results);
+                    }
+
+                });
+
+            }
+
+        });
+
     }
 
 };

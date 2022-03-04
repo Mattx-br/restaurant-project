@@ -1,53 +1,50 @@
-HTMLFormElement.prototype.save = function() {
+HTMLFormElement.prototype.save = function(config) {
 
     let form = this;
 
-    return new Promise((resolve, reject) => {
+    form.addEventListener('submit', (event) => {
 
-        form.addEventListener('submit', (event) => {
+        event.preventDefault();
 
-            event.preventDefault();
+        const formData = new FormData(form);
 
-            let formData = new FormData(form);
+        console.log(form);
 
-            console.log(form);
+        fetch(form.action, {
+                method: form.method,
+                body: formData
+            })
+            .then(response => response.json())
+            .then(json => {
 
-            fetch(form.action, {
-                    method: form.method,
-                    body: formData
-                })
-                .then((response) => {
+                if (json.error) {
 
-                    // setTimeout(() => {})
+                    if (typeof config.failure === 'function') {
 
-                    setTimeout(() => {
+                        config.failure(json.error);
 
-                        console.log('1 resolveu o response:', response);
+                    }
 
-                        console.log('response json', response.json());
+                } else {
 
-                    }, 2000);
+                    if (typeof config.success === 'function') {
 
+                        config.success(json);
 
-                    // response.json();
+                    }
 
-                })
-                .then(json => {
+                }
 
-                    setTimeout(() => {
+            })
+            .catch(err => {
 
-                        resolve(json);
+                if (typeof config.failure === 'function') {
 
-                    }, 1000)
+                    config.failure(err);
 
-                })
-                .catch(err => {
-
-                    reject(err);
-
-                });
-
-        });
+                }
+            });
 
     });
+
 }
