@@ -114,3 +114,11 @@ ALTER USER 'root'@'localhost' IDENTIFIED BY 'nova-senha';
 
 jeito 3
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+
+
+
+using moment.js to format dates
+
+https://momentjs.com/
+
+npm install moment@2.22.2 --save
