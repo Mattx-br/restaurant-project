@@ -109,36 +109,59 @@ router.get('/menus', function (req, res, next) {
 
 router.get('/reservations', function (req, res, next) {
 
-    res.render('admin/reservations', admin.getParams(req, {
+    reservations.getReservations().then(data => {
 
-        date: {}
+        res.render('admin/reservations', admin.getParams(req, {
 
-    }));
+            date: {},
+            data
+
+        }));
+
+    })
+
 
 });
 
 router.post('/reservations', function (req, res, next) {
 
-
-
-
-    console.log('body dps que aperta submit no formCreate: ', req.fields);
+    console.log('req dps que aperta submit no formCreate: ', req.fields);
 
     reservations.save(req.fields, req.files).then(results => {
 
-            console.log('posto novo do reserva');
+        console.log('posto novo do reserva');
+
+        res.send(results);
+
+    })
+        .catch(err => {
+
+
+            console.log('erro do post novo do reserva');
+
+            console.log('\n\n\nerro:', err, '\n\n\n');
+
+            res.send(err);
+
+        });
+
+});
+
+router.post('/menus', function (req, res, next) {
+
+    console.log('chegou no post de menus');
+
+    console.log('fields dps do post:', req.fields);
+
+    menus.save(req.fields, req.files)
+        .then(results => {
 
             res.send(results);
 
         })
-        .catch(err => {
-            console.log('erro do post novo do reserva');
+        .catch(err => { res.send(err); });
 
-            // console.log('erro:', err);
-
-            res.send(err);
-        
-        });
+    // res.send(req.body);
 
 });
 
@@ -226,23 +249,23 @@ router.post('/login', function (req, res, next) {
 });
 
 
-router.post('/menus', function (req, res, next) {
+// router.post('/menus', function (req, res, next) {
 
-    console.log('chegou no post de menus');
+//     console.log('chegou no post de menus');
 
-    console.log('fields dps do post:', req.fields);
+//     console.log('fields dps do post:', req.fields);
 
-    menus.save(req.fields, req.files)
-        .then(results => {
+//     menus.save(req.fields, req.files)
+//         .then(results => {
 
-            res.send(results);
+//             res.send(results);
 
-        })
-        .catch(err => { res.send(err); });
+//         })
+//         .catch(err => { res.send(err); });
 
-    // res.send(req.body);
+//     // res.send(req.body);
 
-});
+// });
 
 
 // router.post('/reservations', function(req, res, next) {
