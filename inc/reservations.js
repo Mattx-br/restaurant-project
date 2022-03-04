@@ -92,7 +92,7 @@ module.exports = {
         });
     },
 
-    getReservations(){
+    getReservations() {
 
         return new Promise((resolve, reject) => {
 
@@ -100,14 +100,35 @@ module.exports = {
                 SELECT * FROM tb_reservations ORDER BY date DESC
             `, (err, results) => {
 
-                if(err){
+                if (err) {
                     reject(err);
                 }
-                else{
+                else {
                     resolve(results);
                 }
 
             })
+
+        });
+
+    },
+    delete(id) {
+
+        return new Promise((resolve, reject) => {
+
+            conn.query(`
+                DELETE FROM tb_reservations WHERE id = ?
+            `, [
+                id
+            ], (err, result) => {
+
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(result)
+                }
+
+            });
 
         });
 
