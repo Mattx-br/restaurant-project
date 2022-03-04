@@ -2,12 +2,22 @@ class HcodeGrid {
 
     constructor(configs) {
 
-        this.options = Object.assign({},{
+        configs.listeners = Object.assign({
+            afterUpdateClick: (e => {
+
+                $('#modal-update').modal('show');
+
+            })
+
+        }, configs.listeners)
+
+        this.options = Object.assign({}, {
             formCreate: '#modal-create form',
             formUpdate: '#modal-update form',
             btnUpdate: '.btn-update',
             btnDelete: '.btn-delete'
-        },configs);
+
+        }, configs);
 
         this.initForms();
         this.initButtons();
@@ -55,6 +65,14 @@ class HcodeGrid {
 
     }
 
+    fireEvent(name, args) {
+
+        if (typeof this.options.listeners[name] === 'function') {
+            this.options.listeners[name].apply(this, args);
+        }
+    }
+
+
     initButtons() {
 
         var editButtons = [...document.querySelectorAll(this.options.btnUpdate)]
@@ -62,6 +80,8 @@ class HcodeGrid {
         editButtons.forEach(btn => {
 
             btn.addEventListener('click', e => {
+
+                this.fireEvent('beforeUpdateClick', [e]);
 
                 // for ubuntu
                 console.log('noq cliquei: ', e.target.tagName);
@@ -101,7 +121,9 @@ class HcodeGrid {
 
                 }
 
-                $('#modal-update').modal('show');
+
+                this.fireEvent('afterUpdateClick', [e]);
+
             });
 
         });

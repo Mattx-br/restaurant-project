@@ -262,7 +262,16 @@
             new HcodeGrid({
                
                 deleteUrl: '/admin/reservations/${data.id}',
-                deleteMsg: 'Are you sure you want to delete ${data.name}?'
+                deleteMsg: 'Are you sure you want to delete ${data.name}?',
+                listeners: {
+
+                    // afterUpdateClick: (e =>{
+                    //    alert('edit batata')
+    
+                    // })
+                }
+
+                
             }); 
 
         </script>
