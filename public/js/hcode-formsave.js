@@ -1,15 +1,6 @@
-HTMLFormElement.prototype.save = function () {
+HTMLFormElement.prototype.save = function() {
 
     let form = this;
-
-    // console.log('form dentro do save:', form);
-
-    var ReserveName = form.querySelectorAll('input')[0].value;
-
-    // console.log('\n\n\ntipo do bglh:', typeof ReserveName,'\n\n\n');
-
-    // console.log('\n\n\nname:', ReserveName[0].value,'\n\n\n');
-
 
     return new Promise((resolve, reject) => {
 
@@ -19,30 +10,35 @@ HTMLFormElement.prototype.save = function () {
 
             let formData = new FormData(form);
 
-            console.log('formData:', formData);
-
-            formData.append('name', ReserveName);
-
-            console.log('formData:', formData);
-
-            console.log('formData:', formData.values);
-
+            console.log(form);
 
             fetch(form.action, {
-                method: form.method,
-                body: formData
-            })
+                    method: form.method,
+                    body: formData
+                })
                 .then((response) => {
 
-                    console.log('1 resolveu o response:', response);
+                    // setTimeout(() => {})
+
+                    setTimeout(() => {
+
+                        console.log('1 resolveu o response:', response);
+
+                        console.log('response json', response.json());
+
+                    }, 2000);
+
 
                     // response.json();
-                    console.log('response json',response.json());
 
                 })
                 .then(json => {
 
-                    resolve(json);
+                    setTimeout(() => {
+
+                        resolve(json);
+
+                    }, 1000)
 
                 })
                 .catch(err => {

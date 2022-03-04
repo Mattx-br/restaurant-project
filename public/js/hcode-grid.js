@@ -12,40 +12,47 @@ class HcodeGrid {
 
                 window.location.reload();
 
-            }), 
+            }),
             afterFormCreate: (e => {
 
                 console.log('resolveu a promise do save formCreate');
 
                 // window.location.reload();
 
-            }), 
+            }),
             afterFormUpdate: (e => {
 
                 console.log('resolveu a promise do save formUpdate');
 
                 // window.location.reload();
 
-            }),afterFormCreateError: (e => {
+            }),
+            afterFormCreateError: (e => {
 
                 console.log('\n\nerro ao salvar o create', err, '\n\n\n');
 
                 // window.location.reload();
 
-            }), afterFormUpdateError: (e => {
+            }),
+            afterFormUpdateError: (e => {
 
                 console.log('\n\nerro ao salvar o update', err, '\n\n\n');
 
                 // window.location.reload();
 
-            }) 
+            })
         }, configs.listeners)
 
         this.options = Object.assign({}, {
             formCreate: '#modal-create form',
             formUpdate: '#modal-update form',
             btnUpdate: '.btn-update',
-            btnDelete: '.btn-delete'
+            btnDelete: '.btn-delete',
+            onUpdateLoad: (form, name, data) => {
+
+                let input = form.querySelector(`[name=${name}]`);
+                if (input) input.value = data[name];
+            }
 
         }, configs);
 
@@ -62,10 +69,10 @@ class HcodeGrid {
 
         this.formCreate.save().then(json => {
 
-            this.fireEvent('afterFormCreate')
+                this.fireEvent('afterFormCreate')
 
 
-        })
+            })
             .catch(err => {
 
                 this.fireEvent('afterFormCreateError')
@@ -109,9 +116,7 @@ class HcodeGrid {
         if (e.target.tagName === 'BUTTON') {
             console.log('button', e.composedPath()[2]);
             tr = e.composedPath()[2];
-        }
-
-        else {
+        } else {
             tr = e.composedPath()[3];
             console.log('fa- fa pencil:', e.composedPath()[3]);
         }
@@ -165,8 +170,8 @@ class HcodeGrid {
                 if (confirm(eval('`' + this.options.deleteMsg + '`'))) {
 
                     fetch(eval('`' + this.options.deleteUrl + '`'), {
-                        method: 'DELETE'
-                    })
+                            method: 'DELETE'
+                        })
                         .then(response => response.json())
                         .then(json => {
 

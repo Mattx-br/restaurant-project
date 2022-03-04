@@ -64,7 +64,7 @@ module.exports = {
 
         return new Promise((s, f) => {
 
-            conn.query('SELECT * FROM tb_users ORDER BY title', (err, result) => {
+            conn.query('SELECT * FROM tb_users ORDER BY name', (err, result) => {
 
                 if (err) {
 
