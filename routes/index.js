@@ -5,9 +5,10 @@ var router = express.Router();
 
 var reservations = require('./../inc/reservations');
 var contacts = require('./../inc/contacts')
+var emails = require('./../inc/emails')
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
 
     menus.getMenus().then(result => {
 
@@ -21,7 +22,7 @@ router.get('/', function(req, res, next) {
 
 });
 
-router.get('/contacts', function(req, res, next) {
+router.get('/contacts', function (req, res, next) {
 
     contacts.render(req, res);
 
@@ -29,7 +30,7 @@ router.get('/contacts', function(req, res, next) {
 
 
 
-router.get('/menus', function(req, res, next) {
+router.get('/menus', function (req, res, next) {
 
     menus.getMenus().then(result => {
 
@@ -47,7 +48,7 @@ router.get('/menus', function(req, res, next) {
 
 
 
-router.get('/reservations', function(req, res, next) {
+router.get('/reservations', function (req, res, next) {
 
     reservations.render(req, res);
 
@@ -55,7 +56,7 @@ router.get('/reservations', function(req, res, next) {
 
 
 
-router.get('/services', function(req, res, next) {
+router.get('/services', function (req, res, next) {
 
     res.render('services', {
         title: 'Services - Restaurante Saboroso!',
@@ -69,8 +70,8 @@ router.get('/services', function(req, res, next) {
 
 // POST methods
 
-router.post('/reservations', function(req, res, next) {
- 
+router.post('/reservations', function (req, res, next) {
+
     if (!req.body.name) {
         reservations.render(req, res, 'Type your name');
     } else if (!req.body.email) {
@@ -101,7 +102,7 @@ router.post('/reservations', function(req, res, next) {
 
 });
 
-router.post('/contacts', function(req, res, next) {
+router.post('/contacts', function (req, res, next) {
 
     console.log(req.body);
 
@@ -127,5 +128,19 @@ router.post('/contacts', function(req, res, next) {
 
 });
 
+router.post('/subscribe', function (req, res, next) {
+
+    emails.save(req).then(results=>{
+
+        res.send(results);
+
+    }).catch(err => {
+
+        res.send(err);
+    
+    });
+
+
+});
 
 module.exports = router;

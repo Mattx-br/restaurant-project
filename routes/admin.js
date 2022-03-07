@@ -270,10 +270,20 @@ router.get('/emails', function (req, res, next) {
         res.render('admin/emails', admin.getParams(req, {
             data
         }));
-    
 
     });
 
+});
+
+router.delete('/emails/:id', function (req, res, next){
+
+    emails.delete(req.params.id).then(results =>{
+
+        res.send(results);
+
+    }).catch(err => { 
+        res.send(err);
+     });
 
 });
 
