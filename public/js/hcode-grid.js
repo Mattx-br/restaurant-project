@@ -69,18 +69,23 @@ class HcodeGrid {
 
         this.formCreate = document.querySelector(this.options.formCreate);
 
-        this.formCreate.save({
-            success: () => {
+        if(this.formCreate){
 
-                this.fireEvent('afterFormCreate')
+            this.formCreate.save({
+                success: () => {
+    
+                    this.fireEvent('afterFormCreate')
+    
+                },
+                failure: () => {
+    
+                    this.fireEvent('afterFormCreateError')
+    
+                }
+            });
 
-            },
-            failure: () => {
+        }
 
-                this.fireEvent('afterFormCreateError')
-
-            }
-        });
 
         // *** Create form
 
@@ -88,18 +93,23 @@ class HcodeGrid {
 
         this.formUpdate = document.querySelector(this.options.formUpdate);
 
-        this.formUpdate.save({
-            success: () => {
+        if (this.formUpdate){
 
-                this.fireEvent('afterFormUpdate')
+            this.formUpdate.save({
+                success: () => {
+    
+                    this.fireEvent('afterFormUpdate');
+    
+                },
+                failure: () => {
+    
+                    this.fireEvent('afterFormUpdateError');
+    
+                }
+            });
 
-            },
-            failure: () => {
+        }
 
-                this.fireEvent('afterFormUpdateError')
-
-            }
-        });
 
         // *** Update form
 
@@ -119,14 +129,17 @@ class HcodeGrid {
         let tr = ''
         if (e.target.tagName === 'BUTTON') {
             tr = e.composedPath()[2];
+            // console.log(tr);
         } else {
             tr = e.composedPath()[3];
+            // console.log(tr);
         }
 
         // for windows
         // let tr = e.path.find(el => {
         //     return (el.tagName.toUpperCase() === 'TR');
         // });
+
 
         return JSON.parse(tr.dataset.row);
 
@@ -146,17 +159,20 @@ class HcodeGrid {
 
 
         this.fireEvent('afterUpdateClick', [e]);
-
+ 
     }
 
     btnDeleteClick(e) {
 
         // Delete reservation
 
+        console.log('evento gerado:', e);
 
         this.fireEvent('beforeDeleteClick');
 
         let data = this.getTrData(e);
+
+        console.log('data>>>>', data);
 
         if (confirm(eval('`' + this.options.deleteMsg + '`'))) {
 

@@ -48,6 +48,54 @@ module.exports = {
 
         });
 
+    },
+    
+    getContacts() {
+
+        return new Promise((s, f) => {
+
+            conn.query('SELECT * FROM tb_contacts ORDER BY name', (err, result) => {
+
+                if (err) {
+
+                    f(err);
+
+                }
+
+                s(result);
+
+            });
+
+        });
+
+    },
+    
+    delete(id) {
+
+        return new Promise((resolve, reject) => {
+            console.log('id', id);
+            conn.query(`
+                DELETE FROM tb_contacts WHERE id = ?
+            `, [
+                id
+            ], (err, result) => {
+
+                if (err) {
+                    console.log('(sucesso)dentro da promise tentando deleter contato:', results);
+
+                    reject(err);
+
+                } else {
+                    console.log('(falhou)dentro da promise tentando deleter contato:', err);
+
+                    resolve(result)
+
+                }
+
+            });
+
+        });
+
     }
 
 };

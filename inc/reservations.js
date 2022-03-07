@@ -81,9 +81,13 @@ module.exports = {
                 if (err) {
 
                     reject(err);
+                    console.log('error in mysql:', err);
+
 
                 } else {
                     resolve(result);
+                    console.log('sucesso no mysql:', results);
+
                 }
 
             });

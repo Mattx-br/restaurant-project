@@ -117,7 +117,7 @@ router.post('/contacts', function(req, res, next) {
             .then(result => {
 
                 req.body = {};
-                contacts.render(req, res, null, 'Contact sended!')
+                contacts.render(req, res, null, 'Contact sent!')
 
             })
             .catch(err => { contacts.render(req, res, err.message) });
