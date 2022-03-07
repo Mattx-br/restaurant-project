@@ -7,7 +7,8 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     database: 'restaurant',
-    password: 'Cle@r2022'
+    password: 'Cle@r2022',
+    multipleStatements: true
 });
 
 // for windows
@@ -15,7 +16,8 @@ const connection = mysql.createConnection({
 //     host: 'localhost',
 //     user: 'root',
 //     database: 'restaurant',
-//     password: ''
+//     password: '',
+//     multipleStatements: true
 // });
 
 module.exports = connection;

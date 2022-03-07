@@ -4,6 +4,7 @@ var menus = require('./../inc/menus');
 var reservations = require('./../inc/reservations');
 var contacts = require('./../inc/contacts');
 var emails = require('./../inc/emails');
+
 var moment = require('moment');
 
 var express = require('express');
@@ -150,7 +151,7 @@ router.get('/reservations', function (req, res, next) {
 
         }));
 
-    })
+    });
 
 
 });
