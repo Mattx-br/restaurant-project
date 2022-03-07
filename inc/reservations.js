@@ -154,6 +154,38 @@ module.exports = {
 
         });
 
+    },
+
+    chart(req){
+
+        return new Promise((resolve, reject) => {
+
+            conn.query(`
+            SELECT
+                CONCAT(YEAR(date), '-', MONTH(date)) AS date,
+                COUNT(*) AS total,
+                SUM(people) / COUNT(*) AS avg_people
+            FROM tb_reservations
+            WHERE
+                    date BETWEEN ? AND ?
+                GROUP BY YEAR(date) , MONTH(date) 
+                ORDER BY YEAR(date) DESC, MONTH(date) DESC;
+            `, [
+                req.query.start,
+                req.query.end
+            ], (err, results) =>{
+
+                if(err){
+                    reject(err);
+                }
+                else{
+                    
+                }
+
+            });
+
+        });
+
     }
 
 
