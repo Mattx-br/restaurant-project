@@ -52,11 +52,10 @@
                 <!-- /.box-header -->
                 <div class="box-body no-padding">
 
-                    <div style="display: flex; align-items: center;margin: auto;padding: auto;height: 350px; width: 350px;">
+                    <div
+                        style="position:relative;display: flex; align-items: center;margin: auto;height: 500px; width: 800px;">
 
                         <canvas id="chart">
-                        
-                        
                         </canvas>
 
                     </div>
@@ -295,17 +294,7 @@
 
             let grafico = new Chart(document.querySelector('#chart').getContext('2d'), {
                 type: 'line',
-                data: {
-                    labels: ['Jan', "Fev", 'Mar', "Apr"],
-                    datasets: [{
-                        data: [1,2,4,1],
-                        label: 'Reservations',
-                        backgroundColor: 'rgb(64, 172, 245)',
-                        borderColor: 'rgb(54, 112, 245)',
-                        fill: true,
-                        pointBackgroundColor: 'rgb(255, 255, 255)'
-                    }]
-                }
+
                 // options: {
                 //     tooltips: {
                 //         mode: 'index',
@@ -329,5 +318,29 @@
                 //     }
                 // }
             });
+
+            fetch(`/admin/reservations/chart${window.location.search}`)
+                .then(response => {
+                    response.json()
+                        .then(json => {
+
+                            console.log('\n\n\njson do chart', json);
+
+                            grafico.data = {
+                                labels: json.months,
+                                datasets: [{
+                                    data: json.values,
+                                    label: 'Reservations',
+                                    backgroundColor: 'rgb(64, 172, 245)',
+                                    borderColor: 'rgb(54, 112, 245)',
+                                    fill: true,
+                                    pointBackgroundColor: 'rgb(255, 255, 255)'
+                                }]
+                            };
+
+                            grafico.update();
+
+                        });
+                });
 
         </script>

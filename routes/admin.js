@@ -99,11 +99,11 @@ router.delete('/contacts/:id', function (req, res, next) {
         res.send(results);
 
         console.log('(sucesso) tentando deleter contato:', results);
-        
-    }).catch(err => { 
+
+    }).catch(err => {
         console.log('(falhou) tentando deleter contato:', err);
         res.send(err);
-        
+
     });
 
     console.log('batata');
@@ -141,8 +141,8 @@ router.get('/menus', function (req, res, next) {
 
 router.get('/reservations', function (req, res, next) {
 
-    let start = (req.query.start) ? req.query.start : moment().subtract(1, 'year').format('YYYY-MM-DD'); 
-    let end = (req.query.end) ? req.query.end : moment().format('YYYY-MM-DD'); 
+    let start = (req.query.start) ? req.query.start : moment().subtract(1, 'year').format('YYYY-MM-DD');
+    let end = (req.query.end) ? req.query.end : moment().format('YYYY-MM-DD');
 
     reservations.getReservations(req).then(pag => {
 
@@ -162,6 +162,21 @@ router.get('/reservations', function (req, res, next) {
 
 
 });
+
+router.get('/reservations/chart', function (req, res, next) {
+
+    req.query.start = (req.query.start) ? req.query.start : moment().subtract(1, 'year').format('YYYY-MM-DD');
+    req.query.end = (req.query.end) ? req.query.end : moment().format('YYYY-MM-DD');
+
+
+    reservations.chart(req).then(chartData => {
+
+        res.send(chartData);
+
+    });
+
+});
+
 
 router.post('/reservations', function (req, res, next) {
 
@@ -273,8 +288,8 @@ router.delete('/users/:id', function (req, res, next) {
 
 router.get('/emails', function (req, res, next) {
 
-    emails.getEmails().then(data =>{
-        
+    emails.getEmails().then(data => {
+
         res.render('admin/emails', admin.getParams(req, {
             data
         }));
@@ -283,15 +298,15 @@ router.get('/emails', function (req, res, next) {
 
 });
 
-router.delete('/emails/:id', function (req, res, next){
+router.delete('/emails/:id', function (req, res, next) {
 
-    emails.delete(req.params.id).then(results =>{
+    emails.delete(req.params.id).then(results => {
 
         res.send(results);
 
-    }).catch(err => { 
+    }).catch(err => {
         res.send(err);
-     });
+    });
 
 });
 

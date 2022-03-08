@@ -22,3 +22,41 @@ SELECT
     COUNT(*) AS total,
     SUM(people) / COUNT(*) AS avg_people
 FROM tb_reservations;
+
+
+SELECT
+    CONCAT(YEAR(date), '-', MONTH(date)) AS date,
+    COUNT(*) AS total,
+    SUM(people) / COUNT(*) AS avg_people
+FROM tb_reservations
+WHERE
+    date BETWEEN '2017-09-24' AND '2028-09-24'
+GROUP BY YEAR(date) DESC, MONTH(date) DESC
+ORDER BY YEAR(date) DESC, MONTH(date) DESC;
+
+
+
+
+--jeito 2
+
+  SELECT
+   CONCAT(YEAR(date), '-', MONTH(date)) AS dateInterval,
+   COUNT(*) AS total,
+   SUM(people) / COUNT(*) AS avg_people
+    FROM tb_reservations
+   WHERE
+    date BETWEEN ? AND ?
+   GROUP BY dateInterval DESC
+   ORDER BY dateInterval DESC
+
+
+-- JEITO Q DÁ CERTO
+   SELECT
+    CONCAT(YEAR(date), '-', MONTH(date)) AS date,
+    COUNT(*) AS total,
+    SUM(people) / COUNT(*) AS avg_people
+FROM tb_reservations
+WHERE
+    date BETWEEN '2017-09-24' AND '2028-09-24'
+GROUP BY CONTAC(YEAR(date), '-' ,MONTH(date))
+ORDER BY date DESC;
