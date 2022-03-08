@@ -130,3 +130,23 @@ https://www.chartjs.org/
 on publi/admin/
 
 bower install chart.js@2.7.2 --save
+
+
+installing socket.io
+to use it, tou will have to uninstall express because of version conflict
+to use socket.io you must have at least express@4.15.2
+
+npm uninstall express --save
+
+now you have to install the express again in a previous version
+
+npm install express@4.15.2 --save 
+
+https://socket.io/
+
+npm install socket.io@2.1.1
+
+reconfigure the express to externalize http to use with socket.io
+
+on app.js add a var http = require('http');
+also add the socket var socket = require('socket.io');
